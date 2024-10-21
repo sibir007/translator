@@ -1,0 +1,56 @@
+#:kivy 1.8.1
+
+<SentencToken>:
+
+
+<Word>:
+    #    on_texture_size: self.size = self.texture_size
+    size: self.texture_size
+    size_hint: [None, None]
+    padding: [0,0,10,0]
+
+<Sentenc>:
+    size_hint: [None, None]
+    orientation:'lr-tb'
+
+<TranslatorApp>:
+    translator_screen: translator_screen
+    input_screen: input_screen
+
+    TranslatorScreen:
+        name: "translator_screen"
+        id: translator_screen
+        translator_area: translator_area
+        BoxLayout:
+            orientation: "vertical"
+            ScrollView:
+                id: kr_scroll
+                BoxLayout: # translator area 
+                    id: translator_area
+                    orientation: "vertical"
+                    padding: 20
+                    spacing: 10
+            BoxLayout: # control area
+                id: translator_control_area
+                orientation: "horizontal"
+                padding: 20
+                spacing: 10
+                Button:
+                    size_hint: [1, None]
+                    text: 'Input'
+                    on_press: root.current = 'input_screen'
+    InputScreen:
+        name: "input_screen"
+        id: input_screen
+        BoxLayout:
+            orientation: "vertical"
+            TextInput:
+                id: input
+            BoxLayout: # control area
+                id: input_control_area
+                orientation: "horizontal"
+                Button:
+                    size_hint: [1, None]
+                    text: 'Translator'
+                    # on_press: root.current = 'translator_screen'            
+                    on_press: root.convert_text(input.text)            
